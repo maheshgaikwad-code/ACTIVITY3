@@ -1,0 +1,55 @@
+#include <stdio.h>
+
+struct ElectricBill {
+    char customer_name[50];
+    char telephone_no[15];
+    char customer_id[20];
+    char address[100];
+    int units_consumed;
+    float rate_per_unit;
+};
+
+void displayBill(struct ElectricBill bill) {
+    float total_bill = bill.units_consumed * bill.rate_per_unit;
+
+    printf("\n");
+    printf("*************** Electric Bill ***************\n");
+    printf("=============================================\n");
+    printf("Customer Name:    %s", bill.customer_name);
+    printf("Telephone No:     %s", bill.telephone_no);
+    printf("Customer ID:      %s", bill.customer_id);
+    printf("Address:          %s", bill.address);
+    printf("Units Consumed:   %d\n", bill.units_consumed);
+    printf("Rate per Unit:    $%.2f\n", bill.rate_per_unit);
+    printf("Total Bill:       $%.2f\n", total_bill);
+    printf("=============================================\n");
+    printf("*********************************************\n");
+}
+
+int main() {
+    struct ElectricBill bill;
+
+    // Input customer details
+    printf("Enter Customer Name: ");
+    fgets(bill.customer_name, sizeof(bill.customer_name), stdin);
+    
+    printf("Enter Telephone No: ");
+    fgets(bill.telephone_no, sizeof(bill.telephone_no), stdin);
+    
+    printf("Enter Customer ID: ");
+    fgets(bill.customer_id, sizeof(bill.customer_id), stdin);
+    
+    printf("Enter Address: ");
+    fgets(bill.address, sizeof(bill.address), stdin);
+    
+    printf("Enter Units Consumed: ");
+    scanf("%d", &bill.units_consumed);
+    
+    printf("Enter Rate per Unit: ");
+    scanf("%f", &bill.rate_per_unit);
+
+    // Display the bill
+    displayBill(bill);
+
+    return 0;
+}
