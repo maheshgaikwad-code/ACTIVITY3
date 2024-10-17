@@ -1,0 +1,79 @@
+#include <stdio.h>
+
+int main() {
+    const int numDevices = 3; // Fixed number of devices
+    char deviceName[50];
+    float powerConsumed; // in watts
+    float hoursUsed;     // in hours
+    float energyConsumed_kWh; // in kWh
+    float energyConsumed_kJ;  // in kJ
+    float totalEnergy_kWh = 0;
+    float totalEnergy_kJ = 0;
+    float electricBill;   // in rupees
+    float totalBill = 0;
+    float voltage = 230;  // Assuming a standard voltage in volts
+    float current;        // in amperes
+    float heatReleased;   // in joules
+    float unitsConsumed;  // in units (kWh)
+
+    // Header
+    printf("*******************************\n");
+    printf("       Energy Consumption       \n");
+    printf("           Calculator           \n");
+    printf("*******************************\n");
+
+    for (int i = 0; i < numDevices; i++) {
+        // Get device name
+        printf("\nEnter the name of device %d: ", i + 1);
+        scanf("%s", deviceName);
+
+        // Get power consumed by the device
+        printf("Enter the power consumed by %s (in watts): ", deviceName);
+        scanf("%f", &powerConsumed);
+
+        // Get number of hours the device is used
+        printf("Enter the number of hours %s is used: ", deviceName);
+        scanf("%f", &hoursUsed);
+
+        // Calculate energy consumed (in kWh)
+        energyConsumed_kWh = (powerConsumed / 1000) * hoursUsed; // converting watts to kW
+
+        // Convert energy consumed to kJ
+        energyConsumed_kJ = energyConsumed_kWh * 3600; // 1 kWh = 3600 kJ
+
+        // Calculate electric bill (5 rupees per unit)
+        electricBill = energyConsumed_kWh * 5;
+        
+        // Update total values
+        totalEnergy_kWh += energyConsumed_kWh;
+        totalEnergy_kJ += energyConsumed_kJ;
+        totalBill += electricBill;
+
+        // Calculate current for one device (I = P / V)
+        current = powerConsumed / voltage; // in amperes
+
+        // Calculate heat released (Q = P * t; in joules, P is in watts and t in seconds)
+        heatReleased = powerConsumed * (hoursUsed * 3600); // converting hours to seconds
+
+        // Display results for the device
+        printf("\nDevice Name: %s\n", deviceName);
+        printf("  Energy Consumed: %.2f kWh (%.2f kJ)\n", energyConsumed_kWh, energyConsumed_kJ);
+        printf("  Units Consumed: %.2f units\n", energyConsumed_kWh);
+        printf("  Electric Bill: %.2f rupees\n", electricBill);
+        printf("  Current Drawn: %.2f A\n", current);
+        printf("  Heat Released: %.2f J\n", heatReleased);
+    }
+
+    // Display total values in a creative bill format
+    printf("\n*******************************\n");
+    printf("         FINAL BILL            \n");
+    printf("*******************************\n");
+    printf(" Total Energy Consumed: %.2f kWh (%.2f kJ)\n", totalEnergy_kWh, totalEnergy_kJ);
+    printf(" Total Units Consumed: %.2f units\n", totalEnergy_kWh);
+    printf(" Total Electric Bill: %.2f rupees\n", totalBill);
+    printf("*******************************\n");
+    printf("       Thank You for Using!    \n");
+    printf("*******************************\n");
+
+    return 0;
+}
